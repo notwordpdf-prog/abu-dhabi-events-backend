@@ -85,6 +85,7 @@ app.post('/rsvp/approve', verifyAuth, async (req, res) => {
     let wasWaitlisted = false;
 
     await db.runTransaction(async (tx) => {
+      wasWaitlisted = false; // Reset on each retry so stale state never leaks out
       const eventSnap = await tx.get(eventRef);
       if (!eventSnap.exists) throw new Error('Event not found');
       const eventData = eventSnap.data();
