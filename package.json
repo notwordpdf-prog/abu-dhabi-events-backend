@@ -1,13 +1,15 @@
 {
   "name": "abu-dhabi-events-backend",
   "version": "1.0.0",
-  "description": "OneSignal notification backend for Abu Dhabi Events",
+  "description": "OneSignal notification + Firestore trusted operations backend for Abu Dhabi Events",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "node-fetch": "^2.7.0"
+    "firebase-admin": "^12.0.0",
+    "node-fetch": "^2.7.0",
+    "uuid": "^9.0.0"
   }
 }
