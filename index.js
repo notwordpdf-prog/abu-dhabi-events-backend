@@ -111,6 +111,7 @@ app.post('/rsvp/approve', verifyAuth, async (req, res) => {
         issuedAt:        FieldValue.serverTimestamp(),
         usedAt:          null,
         cancelledAt:     null,
+        tierName:        reqData.tierName ?? null,
         eventTitle:      eventData.title ?? null,
         eventDate:       eventData.date ?? null,
         eventVenue:      eventData.venue ?? null,
@@ -168,7 +169,7 @@ app.post('/tickets/validate', verifyAuth, async (req, res) => {
     }
 
     await doc.ref.update({ status: 'used', usedAt: FieldValue.serverTimestamp() });
-    return res.json({ valid: true, guestName: data.userDisplayName ?? 'Guest' });
+    return res.json({ valid: true, guestName: data.userDisplayName ?? 'Guest', tier: data.tierName ?? null });
   } catch (e) {
     console.error('/tickets/validate error:', e);
     res.status(500).json({ error: e.message });
@@ -237,6 +238,7 @@ app.post('/tickets/cancel', verifyAuth, async (req, res) => {
         issuedAt:        FieldValue.serverTimestamp(),
         usedAt:          null,
         cancelledAt:     null,
+        tierName:        nextData.tierName ?? null,
         eventTitle:      eventData.title ?? null,
         eventDate:       eventData.date ?? null,
         eventVenue:      eventData.venue ?? null,
